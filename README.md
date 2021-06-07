@@ -1,5 +1,5 @@
 # The-Glass-Timer
-## A poorly optimized yet very flexible LCD based Timer, built in **Arduino C++ with a Arduino UNO R3 circuit. 
+## A poorly optimized yet very flexible LCD based Timer, built in Arduino C++ with a Arduino UNO R3 circuit. 
 
 This repository was made for a school assingment.
 

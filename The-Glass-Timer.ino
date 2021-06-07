@@ -10,8 +10,6 @@ int timu = 0; //timer menu selector
 int clock = 0; //Clock menu selector
 int settg = 0; //Settings Menu Selector
 
-int percent = 0; // Controlls the LEDs, if enables.
-
 int h = 0;
 int m = 0;
 int s = 0;
@@ -21,6 +19,7 @@ int ml = 0;
 int sl = 0;
 
 bool led_on = true;
+bool timer_end = false;
 
 void refresh(int d = 100)
 {
@@ -218,8 +217,13 @@ void loop()
         case 5:
           switch (clock) {
             case 0:
-              text1 = " Restart  >Back<";
-              text2 = String(hl) + ": " + ml + ": " + round(sl);
+              if(timer_end){
+                text1 = " Restart  >Back<";
+                text2 = "**Timer is up!**";
+              }else{
+                text1 = " Restart  >Back<";
+                text2 = String(hl) + ": " + ml + ": " + round(sl);
+              }
               if (left == 1023) {
   
                 clock++;
@@ -231,17 +235,22 @@ void loop()
               }
               break;
             case 1:
-              text1 = " >Restart< Back ";
-              text2 = String(hl) + ": " + ml + ": " + round(sl);
+              if(timer_end){
+                text1 = ">Restart<  Back ";
+                text2 = "**Timer is up!**";
+              }else{
+                text1 = ">Restart<  Back ";
+                text2 = String(hl) + ": " + ml + ": " + round(sl);
+              }
+              
               if (right == 1023) {
-  
                 clock--;
                 break;
               } else if (enter == 1023) {
-  
                 hl = h;
                 ml = m;
                 sl = s;
+                timer_end = false;
                 digitalWrite(8, LOW);
                 digitalWrite(9, LOW);
                 digitalWrite(10, LOW);
@@ -250,44 +259,22 @@ void loop()
                 digitalWrite(13, LOW);
                 break;
               }
-              if (sl < 0) {
-                if (ml < 0) {
-                  if (hl != 0) {
-                    ml = 59;
-                  } else {
-                    ml = 0;
-                  }
+
+              if(!timer_end){
+                sl = sl - 0.0001;
+                if(sl <= 0){
+                  sl = 59;
+                  ml--;
+                }
+                if(ml < 0){
+                  ml = 59;
                   hl--;
                 }
-                if (hl != 0 || ml != 0) {
-                  sl = 59;
-                } else {
-                  sl = 0;
-                }
-                ml--;
               }
-              sl = sl - 0.01;
 
               if (led_on) {
-                percent = (hl / 60  - h / 60) + (ml / 60 - m / 60) + (sl / 60 - s / 60) / 3;
-                if (percent < 6 / 6) {
-                  digitalWrite(8, HIGH);
-                }
-                if (percent < 5 / 6) {
-                  digitalWrite(9, HIGH);
-                }
-                if (percent < 4 / 6) {
-                  digitalWrite(10, HIGH);
-                }
-                if (percent < 3 / 6) {
-                  digitalWrite(11, HIGH);
-                }
-                if (percent < 2 / 6) {
-                  digitalWrite(12, HIGH);
-                }
-                if (percent < 1 / 6) {
-                  digitalWrite(13, HIGH);
-                }
+                digitalWrite(13, HIGH);
+                refresh();
               }
               break;
           }
@@ -309,7 +296,7 @@ void loop()
           break;
         case 1:
           text1 = "           Back ";
-          text2 = ">LEDs on?<     " + String(led_on);
+          text2 = ">LEDs on?<    " + String(led_on);
           if (up == 1023) {
             settg--;
             break;

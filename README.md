@@ -6,3 +6,4 @@ A poorly optimized yet very flexible **LCD based Timer**, built in **Arduino C++
 
 The `Tinkercad-TGT` file can be uploaded to [Tinkercad](https://www.tinkercad.com/). **The code for the Arduino component in the Tinkercad file will not be regularly updated unless the hardware is modified. You may upload the code from the `The-Glass-Timer.ino` file manually.**
 
+This Repository was made for a school assingment.

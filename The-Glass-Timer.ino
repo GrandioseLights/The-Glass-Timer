@@ -19,12 +19,6 @@ int hl = 0;
 int ml = 0;
 int sl = 0;
 
-int up = analogRead(A0);
-int down = analogRead(A1);
-int left = analogRead(A2);
-int right = analogRead(A3);
-int enter = analogRead(A4);
-
 bool led_on = true;
 
 void refresh()
@@ -53,38 +47,12 @@ void setup()
 
 void loop() 
 {
-  delay(100);
-  up = analogRead(A0);
-  if(up != 1023)
-  {
-    down = analogRead(A1);
-    if(down != 1023)
-    {
-      left = analogRead(A2);
-      if(left != 1023)
-      {
-        right = analogRead(A3);
-        if(right != 1023)
-        {
-          int enter = analogRead(A4);
-        }
-      }
-    }
-  }
+  int up = analogRead(A0);
+  int down = analogRead(A1);
+  int left = analogRead(A2);
+  int right = analogRead(A3);
+  int enter = analogRead(A5);
 
-  if (up == 1023 || down == 1023 || left == 1023 || right == 1023 || enter == 1023){
-    Serial.print(up);
-    Serial.print(" UP   | ");
-    Serial.print(down);
-    Serial.print(" DOWN | ");
-    Serial.print(left);
-    Serial.print(" LEFT | ");
-    Serial.print(right);
-    Serial.print(" RIGHT| ");
-    Serial.print(enter);
-    Serial.println(" ENTER| ");
-  }
-  
   if(h > 60){h = 60;}
   if(m > 60){m = 60;}
   if(h > 60){s = 60;}
@@ -95,19 +63,19 @@ void loop()
 
   switch (app){
     case 0:
-      digitalWrite(8, LOW);
-      digitalWrite(9, LOW);
-      digitalWrite(10, LOW);
-      digitalWrite(11, LOW);
-      digitalWrite(12, LOW);
-      digitalWrite(13, LOW);
+        digitalWrite(8, LOW);
+        digitalWrite(9, LOW);
+        digitalWrite(10, LOW);
+        digitalWrite(11, LOW);
+        digitalWrite(12, LOW);
+        digitalWrite(13, LOW);
       switch (menu){
         case 0:
           text1 = "The_Glass_Timer ";
           text2 = " Timer          ";
           if (down == 1023){
-            
             refresh();
+            delay(100);
             menu++;
             break;
           }
@@ -116,18 +84,18 @@ void loop()
           text1 = "The_Glass_Timer ";
           text2 = ">Timer<         ";
           if (up == 1023){
-            
             refresh();
+            delay(100);
             menu--;
             break;
           } else if (down == 1023){
-            
             refresh();
+            delay(100);
             menu++;
             break;
           } else if (enter == 1023){
-            
             refresh();
+            delay(100);
             app = 1;
             break;
           }
@@ -136,18 +104,18 @@ void loop()
           text1 = ">Settings<      ";
           text2 = " Credits        ";
           if (up == 1023){
-            
             refresh();
+            delay(100);
             menu--;
             break;
           } else if (down == 1023){
-            
             refresh();
+            delay(100);
             menu++;
             break;
           } else if (enter == 1023){
-            
             refresh();
+            delay(100);
             app = 2;
             break;
           }
@@ -156,13 +124,13 @@ void loop()
           text1 = " Settings       ";
           text2 = ">Credits<       ";
           if (up == 1023){
-            
             refresh();
+            delay(100);
             menu--;
             break;
           } else if (enter == 1023){
             refresh();
-            //dddd
+            delay(100);
             app = 3;
             break;
           }
@@ -175,18 +143,18 @@ void loop()
           text1 = "Timer      Back ";
           text2 = ">"+ String(h) +" Hours<"+ m +"m "+ s +"s Start";
           if (up == 1023){
-            
             refresh();
+            delay(100);
             h++;
             break;
           } else if (down == 1023){
-            
             refresh();
+            delay(100);
             h--;
             break;
           } else if (right == 1023){
-            
             refresh();
+            delay(100);
             timu++;
             break;
           }
@@ -195,23 +163,23 @@ void loop()
           text1 = "Timer      Back ";
           text2 = " "+ String(h) +"h>"+ m +" Minutes<"+ s +"s Start";
           if (up == 1023){
-            
             refresh();
+            delay(100);
             m++;
             break;
           } else if (down == 1023){
-            
             refresh();
+            delay(100);
             m--;
             break;
           } else if (left == 1023){
-            
             refresh();
+            delay(100);
             timu--;
             break;
           } else if (right == 1023){
-            
             refresh();
+            delay(100);
             timu++;
             break;
           }
@@ -220,23 +188,23 @@ void loop()
           text1 = "Timer      Back ";
           text2 = String(h) +"h "+ m +"m>"+ s +" Seconds<Start";
           if (up == 1023){
-            
             refresh();
+            delay(100);
             s++;
             break;
           } else if (down == 1023){
-            
             refresh();
+            delay(100);
             s--;
             break;
           } else if (left == 1023){
-            
             refresh();
+            delay(100);
             timu--;
             break;
           } else if (right == 1023){
-            
             refresh();
+            delay(100);
             timu++;
             break;
           }
@@ -248,18 +216,18 @@ void loop()
           ml = m;
           sl = s;
           if (up == 1023){
-            
             refresh();
+            delay(100);
             timu++;
             break;
           } else if (left == 1023){
-            
             refresh();
+            delay(100);
             timu--;
             break;
           } else if (enter == 1023){
-            
             refresh();
+            delay(100);
             timu = 5;
             break;
           }
@@ -268,13 +236,13 @@ void loop()
           text1 = "Timer     >Back<";
           text2 = String(h) +"h "+ m +"m "+ s +"s Start";
           if (down == 1023){
-            
             refresh();
+            delay(100);
             timu--;
             break;
           } else if (enter == 1023){
-            
             refresh();
+            delay(100);
             app = 0;
             break;
           }
@@ -285,15 +253,15 @@ void loop()
               text1 = " Restart  >Back<";
               text2 = String(hl) + ": " + ml + ": " + sl;
               if (left == 1023){
-                
                 refresh();
+                delay(100);
                 clock++;
                 break;
               } else if (enter == 1023){
-                
-                //dddd
                 refresh();
-            
+                delay(100);
+                timu = 3;
+            refresh();
                 break;
               }
             break;
@@ -301,12 +269,12 @@ void loop()
               text1 = " >Restart< Back ";
               text2 = String(hl) + ": " + ml + ": " + sl;
               if (right == 1023){
-                
                 refresh();
+                delay(100);
                 clock--;
                 break;
               } else if (enter == 1023){
-                //dddd
+                delay(100);
                 hl = h;
                 ml = m;
                 sl = s;
@@ -314,15 +282,13 @@ void loop()
                 digitalWrite(9, LOW);
                 digitalWrite(10, LOW);
                 digitalWrite(11, LOW);
-                
+                refresh();
                 digitalWrite(12, LOW);
                 digitalWrite(13, LOW);
-                refresh();
                 break;
               }
-
-            if(sl==0){
-              if(ml==0){
+            if(sl==-1){
+              if(ml==-1){
                 if(hl!=0){
                   ml = 59;
                 } else {
@@ -361,11 +327,11 @@ void loop()
               }
             }
             delay(1000);
-          refresh();
           break;
         }
       break;
       }
+
     break;
     case 2: // The user has selected the settings Screen
       switch(settg){
@@ -373,22 +339,19 @@ void loop()
           text1 = "          >Back<";
           text2 = " LEDs on?     " + String(led_on);
           if (up == 1023){
-            
-            //dddd
-            settg--;
             refresh();
+            delay(100);
+            settg--;
             break;
           } else if (down == 1023){
-            
-            //dddd
-            settg++;
             refresh();
+            delay(100);
+            settg++;
             break;
           } else if (enter == 1023){
-            
-            //dddd
-            app = 0;
             refresh();
+            delay(100);
+            app = 0;
             break;
           }
         break;
@@ -396,22 +359,19 @@ void loop()
           text1 = "           Back ";
           text2 = ">LEDs on?<     " + String(led_on);
           if (up == 1023){
-            
-            //dddd
-            settg--;
             refresh();
+            delay(100);
+            settg--;
             break;
           } else if (down == 1023){
-            
-            //dddd
-            settg++;
             refresh();
+            delay(100);
+            settg++;
             break;
           } else if (enter == 1023){
-            
-            //dddd
-            led_on = !led_on;
             refresh();
+            delay(100);
+            led_on = !led_on;
             break;
           }
         break;
@@ -419,46 +379,38 @@ void loop()
           text1 = ">Placeholder<   ";
           text2 = "                ";
           if (up == 1023){
-            
-            //dddd
-            settg--;
             refresh();
+            delay(100);
+            settg--;
             break;
           }
         break;
       }
     break;
     case 3: // The user has selected the Credits screen
-      refresh();
       text1 = "CREDITS 1/3     ";
       text2 = "Coding: Zachary ";
-      delay(3000);
-      refresh();
+      refresh();delay(3000);
+
       text1 = "CREDITS 2/3     ";
       text2 = "Libraries: ARDUI";
-      delay(1000);
-      refresh();
+      refresh();delay(1000);
       text2 = "ibraries: ARDUIN";
-      delay(500);
-      refresh();
+      refresh();delay(500);
       text2 = "braries: ARDUINO";
-      delay(1000);
-      refresh();
+      refresh();delay(1000);
 
       text2 = "Libraries: ARDUI";
-      delay(500);
-      refresh();
+      refresh();delay(500);
       text2 = "ibraries: ARDUIN";
-      delay(500);
-      refresh();
+      refresh();delay(500);
       text2 = "braries: ARDUINO";
-      delay(1000);
-      refresh();
+      refresh();delay(1000);
 
       text1 = "CREDITS 3/3     ";
       text2 = "James: James    ";
-      delay(3000);
-      refresh();
+      refresh();delay(3000);
+
       app = 0;
     break;
   }

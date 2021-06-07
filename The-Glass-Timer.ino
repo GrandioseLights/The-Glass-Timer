@@ -41,17 +41,18 @@ void setup()
   pinMode(11, OUTPUT);
   pinMode(12, OUTPUT);
   pinMode(13, OUTPUT);
+
+  refresh();
 }
 
 void loop() 
-{  
+{
   int up = analogRead(A0);
   int down = analogRead(A1);
   int left = analogRead(A2);
   int right = analogRead(A3);
-  
   int enter = analogRead(A5);
-  
+
   if(h > 60){h = 60;}
   if(m > 60){m = 60;}
   if(h > 60){s = 60;}
@@ -59,8 +60,6 @@ void loop()
   if(h < 0){h = 0;}
   if(m < 0){m = 0;}
   if(s < 0){s = 0;}
-
-  Serial.println(percent);
 
   switch (app){
     case 0:
@@ -75,6 +74,7 @@ void loop()
           text1 = "The_Glass_Timer ";
           text2 = " Timer          ";
           if (down == 1023){
+            refresh();
             delay(100);
             menu++;
             break;
@@ -84,14 +84,17 @@ void loop()
           text1 = "The_Glass_Timer ";
           text2 = ">Timer<         ";
           if (up == 1023){
+            refresh();
             delay(100);
             menu--;
             break;
           } else if (down == 1023){
+            refresh();
             delay(100);
             menu++;
             break;
           } else if (enter == 1023){
+            refresh();
             delay(100);
             app = 1;
             break;
@@ -101,14 +104,17 @@ void loop()
           text1 = ">Settings<      ";
           text2 = " Credits        ";
           if (up == 1023){
+            refresh();
             delay(100);
             menu--;
             break;
           } else if (down == 1023){
+            refresh();
             delay(100);
             menu++;
             break;
           } else if (enter == 1023){
+            refresh();
             delay(100);
             app = 2;
             break;
@@ -118,10 +124,12 @@ void loop()
           text1 = " Settings       ";
           text2 = ">Credits<       ";
           if (up == 1023){
+            refresh();
             delay(100);
             menu--;
             break;
           } else if (enter == 1023){
+            refresh();
             delay(100);
             app = 3;
             break;
@@ -135,14 +143,17 @@ void loop()
           text1 = "Timer      Back ";
           text2 = ">"+ String(h) +" Hours<"+ m +"m "+ s +"s Start";
           if (up == 1023){
+            refresh();
             delay(100);
             h++;
             break;
           } else if (down == 1023){
+            refresh();
             delay(100);
             h--;
             break;
           } else if (right == 1023){
+            refresh();
             delay(100);
             timu++;
             break;
@@ -152,18 +163,22 @@ void loop()
           text1 = "Timer      Back ";
           text2 = " "+ String(h) +"h>"+ m +" Minutes<"+ s +"s Start";
           if (up == 1023){
+            refresh();
             delay(100);
             m++;
             break;
           } else if (down == 1023){
+            refresh();
             delay(100);
             m--;
             break;
           } else if (left == 1023){
+            refresh();
             delay(100);
             timu--;
             break;
           } else if (right == 1023){
+            refresh();
             delay(100);
             timu++;
             break;
@@ -173,18 +188,22 @@ void loop()
           text1 = "Timer      Back ";
           text2 = String(h) +"h "+ m +"m>"+ s +" Seconds<Start";
           if (up == 1023){
+            refresh();
             delay(100);
             s++;
             break;
           } else if (down == 1023){
+            refresh();
             delay(100);
             s--;
             break;
           } else if (left == 1023){
+            refresh();
             delay(100);
             timu--;
             break;
           } else if (right == 1023){
+            refresh();
             delay(100);
             timu++;
             break;
@@ -197,14 +216,17 @@ void loop()
           ml = m;
           sl = s;
           if (up == 1023){
+            refresh();
             delay(100);
             timu++;
             break;
           } else if (left == 1023){
+            refresh();
             delay(100);
             timu--;
             break;
           } else if (enter == 1023){
+            refresh();
             delay(100);
             timu = 5;
             break;
@@ -214,10 +236,12 @@ void loop()
           text1 = "Timer     >Back<";
           text2 = String(h) +"h "+ m +"m "+ s +"s Start";
           if (down == 1023){
+            refresh();
             delay(100);
             timu--;
             break;
           } else if (enter == 1023){
+            refresh();
             delay(100);
             app = 0;
             break;
@@ -229,12 +253,15 @@ void loop()
               text1 = " Restart  >Back<";
               text2 = String(hl) + ": " + ml + ": " + sl;
               if (left == 1023){
+                refresh();
                 delay(100);
                 clock++;
                 break;
               } else if (enter == 1023){
+                refresh();
                 delay(100);
                 timu = 3;
+            refresh();
                 break;
               }
             break;
@@ -242,6 +269,7 @@ void loop()
               text1 = " >Restart< Back ";
               text2 = String(hl) + ": " + ml + ": " + sl;
               if (right == 1023){
+                refresh();
                 delay(100);
                 clock--;
                 break;
@@ -254,6 +282,7 @@ void loop()
                 digitalWrite(9, LOW);
                 digitalWrite(10, LOW);
                 digitalWrite(11, LOW);
+                refresh();
                 digitalWrite(12, LOW);
                 digitalWrite(13, LOW);
                 break;
@@ -310,14 +339,17 @@ void loop()
           text1 = "          >Back<";
           text2 = " LEDs on?     " + String(led_on);
           if (up == 1023){
+            refresh();
             delay(100);
             settg--;
             break;
           } else if (down == 1023){
+            refresh();
             delay(100);
             settg++;
             break;
           } else if (enter == 1023){
+            refresh();
             delay(100);
             app = 0;
             break;
@@ -327,14 +359,17 @@ void loop()
           text1 = "           Back ";
           text2 = ">LEDs on?<     " + String(led_on);
           if (up == 1023){
+            refresh();
             delay(100);
             settg--;
             break;
           } else if (down == 1023){
+            refresh();
             delay(100);
             settg++;
             break;
           } else if (enter == 1023){
+            refresh();
             delay(100);
             led_on = !led_on;
             break;
@@ -344,6 +379,7 @@ void loop()
           text1 = ">Placeholder<   ";
           text2 = "                ";
           if (up == 1023){
+            refresh();
             delay(100);
             settg--;
             break;
@@ -378,5 +414,4 @@ void loop()
       app = 0;
     break;
   }
-  refresh();
 }
